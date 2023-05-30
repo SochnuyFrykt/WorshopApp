@@ -19,6 +19,7 @@ namespace Workshop_App
         {
             try
             {
+                sqlConnection.Open();
                 sqlAdapter = new SqlDataAdapter(
                     "SELECT Hardware.id, brand, model, dateAceptance, status, firstName, secondName, lastName, phone " +
                     "FROM Hardware " +
@@ -35,6 +36,7 @@ namespace Workshop_App
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            sqlConnection.Close();
         }
 
         public void InsertNewData(params string[] insertData)
@@ -50,11 +52,12 @@ namespace Workshop_App
                     "INSERT Hardware(brand, model_id, dateAceptance, status, id_user)" +
                     $"VALUES('{insertData[0]}', " +
                     $"(SELECT TOP 1 id FROM model ORDER BY ID DESC), " +
-                    $"'{DateTime.Now.ToString("MM/d/yyyy")}', N'В ремонте', (SELECT TOP 1 id FROM Users ORDER BY ID DESC))";
+                    $"'{DateTime.Now.ToString("MM/dd/yyyy")}', N'В ремонте', (SELECT TOP 1 id FROM Users ORDER BY ID DESC))";
             else MessageBox.Show("Указанны не все значения");
             sqlCommand.Connection = sqlConnection;
             sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
         }
 
         public void UpdateData(params string[] updateData)
@@ -87,6 +90,7 @@ namespace Workshop_App
             sqlCommand.Connection = sqlConnection;
             sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
         }
 
         public void UpdateStatus(object id)
@@ -95,11 +99,12 @@ namespace Workshop_App
             sqlCommand.CommandType = CommandType.Text;
             sqlCommand.CommandText =
                 "UPDATE Hardware " +
-                $"SET status = N'Ремонт окончен' " +
+                $"SET status = N'Ремонт окончен ({DateTime.Now.ToString("MM/dd/yyyy")})' " +
                 $"WHERE id = '{id}'";
             sqlCommand.Connection = sqlConnection;
             sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
         }
 
         public void DeleteData(object id)
@@ -115,6 +120,7 @@ namespace Workshop_App
             sqlCommand.Connection = sqlConnection;
             sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
         }
 
         public int GetStatistic(string start, string finish)
@@ -123,12 +129,15 @@ namespace Workshop_App
             SqlCommand thisCommand = new SqlCommand("SELECT COUNT(*) " +
                     "FROM Hardware " +
                     $"WHERE dateAceptance BETWEEN '{start}' AND '{finish}' " +
-                    "AND status LIKE N'Ремонт окончен' ", sqlConnection);
-            return (int)thisCommand.ExecuteScalar();
+                    "AND status LIKE N'Ремонт окончен%' ", sqlConnection);
+            int numStatistic = (int)thisCommand.ExecuteScalar();
+            sqlConnection.Close();
+            return numStatistic;
         }
 
         public void Search(DataGridView dataGrid, string searchText)
         {
+            sqlConnection.Open();
             sqlAdapter = new SqlDataAdapter(
                 "SELECT Hardware.id, brand, model, dateAceptance, status, firstName, secondName, lastName, phone " +
                 "FROM Hardware " +
@@ -145,9 +154,29 @@ namespace Workshop_App
                 "ORDER BY Hardware.id DESC",
                 sqlConnection
             );
-            SqlCommandBuilder sqlCommandBuilder = new SqlCommandBuilder(sqlAdapter);
             sqlAdapter.Fill(dataSet, "Workshop");
             dataGrid.DataSource = dataSet.Tables["Workshop"];
+            sqlConnection.Close();
+        }
+
+        public List<string> GetHint(string query)
+        {
+            sqlConnection.Open();
+            var listBrand = new List<string>();
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+            var reader = sqlCommand.ExecuteReader();
+            while (reader.Read())
+            {
+                string str = reader[0].ToString();
+                for (int i = 1; i < reader.FieldCount; i++)
+                {
+                    if (reader[i].ToString() != "")
+                        str += $"  {reader[i]}";
+                }
+                listBrand.Add(str);
+            }
+            sqlConnection.Close();
+            return listBrand;
         }
     }
 }

@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             dataGrid = new DataGridView();
-            InputBrand = new TextBox();
-            InputModel = new TextBox();
             Brand = new Label();
             Model = new Label();
             SaveDevise = new Button();
@@ -52,6 +50,8 @@
             DeleteButton = new Button();
             UpdateButton = new Button();
             UpdateStatusButton = new Button();
+            InputBrand = new ComboBox();
+            InputModel = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
             SuspendLayout();
             // 
@@ -63,22 +63,8 @@
             dataGrid.Location = new Point(294, 77);
             dataGrid.Name = "dataGrid";
             dataGrid.RowTemplate.Height = 25;
-            dataGrid.Size = new Size(1096, 690);
-            dataGrid.TabIndex = 14;
-            // 
-            // InputBrand
-            // 
-            InputBrand.Location = new Point(52, 43);
-            InputBrand.Name = "InputBrand";
-            InputBrand.Size = new Size(175, 23);
-            InputBrand.TabIndex = 0;
-            // 
-            // InputModel
-            // 
-            InputModel.Location = new Point(52, 95);
-            InputModel.Name = "InputModel";
-            InputModel.Size = new Size(175, 23);
-            InputModel.TabIndex = 1;
+            dataGrid.Size = new Size(1397, 690);
+            dataGrid.TabIndex = 100;
             // 
             // Brand
             // 
@@ -103,7 +89,7 @@
             SaveDevise.Location = new Point(95, 352);
             SaveDevise.Name = "SaveDevise";
             SaveDevise.Size = new Size(75, 23);
-            SaveDevise.TabIndex = 4;
+            SaveDevise.TabIndex = 6;
             SaveDevise.Text = "Добавить";
             SaveDevise.UseVisualStyleBackColor = true;
             SaveDevise.Click += SaveDevise_Click;
@@ -112,20 +98,20 @@
             // 
             monthCalendar1.Location = new Point(53, 415);
             monthCalendar1.Name = "monthCalendar1";
-            monthCalendar1.TabIndex = 5;
+            monthCalendar1.TabIndex = 100;
             // 
             // monthCalendar2
             // 
             monthCalendar2.Location = new Point(52, 605);
             monthCalendar2.Name = "monthCalendar2";
-            monthCalendar2.TabIndex = 6;
+            monthCalendar2.TabIndex = 100;
             // 
             // Statistics
             // 
             Statistics.Location = new Point(52, 779);
             Statistics.Name = "Statistics";
             Statistics.Size = new Size(164, 23);
-            Statistics.TabIndex = 7;
+            Statistics.TabIndex = 11;
             Statistics.Text = "Вывести статистику";
             Statistics.UseVisualStyleBackColor = true;
             Statistics.Click += Statistics_Click;
@@ -153,14 +139,14 @@
             InputNumberPhone.Location = new Point(52, 314);
             InputNumberPhone.Name = "InputNumberPhone";
             InputNumberPhone.Size = new Size(175, 23);
-            InputNumberPhone.TabIndex = 10;
+            InputNumberPhone.TabIndex = 5;
             // 
             // InputFirstName
             // 
             InputFirstName.Location = new Point(52, 149);
             InputFirstName.Name = "InputFirstName";
             InputFirstName.Size = new Size(175, 23);
-            InputFirstName.TabIndex = 11;
+            InputFirstName.TabIndex = 2;
             // 
             // label1
             // 
@@ -185,7 +171,7 @@
             Search.Location = new Point(294, 43);
             Search.Name = "Search";
             Search.Size = new Size(420, 23);
-            Search.TabIndex = 15;
+            Search.TabIndex = 7;
             Search.KeyPress += Search_KeyPress;
             // 
             // label3
@@ -202,14 +188,14 @@
             InputLastName.Location = new Point(52, 258);
             InputLastName.Name = "InputLastName";
             InputLastName.Size = new Size(175, 23);
-            InputLastName.TabIndex = 17;
+            InputLastName.TabIndex = 4;
             // 
             // InputSecondName
             // 
             InputSecondName.Location = new Point(52, 202);
             InputSecondName.Name = "InputSecondName";
             InputSecondName.Size = new Size(175, 23);
-            InputSecondName.TabIndex = 18;
+            InputSecondName.TabIndex = 3;
             // 
             // label4
             // 
@@ -231,39 +217,58 @@
             // 
             // DeleteButton
             // 
-            DeleteButton.Location = new Point(1226, 43);
+            DeleteButton.Location = new Point(1527, 42);
             DeleteButton.Name = "DeleteButton";
             DeleteButton.Size = new Size(164, 23);
-            DeleteButton.TabIndex = 21;
+            DeleteButton.TabIndex = 10;
             DeleteButton.Text = "Удалить запись";
             DeleteButton.UseVisualStyleBackColor = true;
             DeleteButton.Click += DeleteButton_Click;
             // 
             // UpdateButton
             // 
-            UpdateButton.Location = new Point(1056, 43);
+            UpdateButton.Location = new Point(1357, 42);
             UpdateButton.Name = "UpdateButton";
             UpdateButton.Size = new Size(164, 23);
-            UpdateButton.TabIndex = 22;
+            UpdateButton.TabIndex = 9;
             UpdateButton.Text = "Изменить запись";
             UpdateButton.UseVisualStyleBackColor = true;
             UpdateButton.Click += UpdateButton_Click;
             // 
             // UpdateStatusButton
             // 
-            UpdateStatusButton.Location = new Point(886, 43);
+            UpdateStatusButton.Location = new Point(1187, 42);
             UpdateStatusButton.Name = "UpdateStatusButton";
             UpdateStatusButton.Size = new Size(164, 23);
-            UpdateStatusButton.TabIndex = 23;
+            UpdateStatusButton.TabIndex = 8;
             UpdateStatusButton.Text = "Изменить статус";
             UpdateStatusButton.UseVisualStyleBackColor = true;
             UpdateStatusButton.Click += UpdateStatusButton_Click;
+            // 
+            // InputBrand
+            // 
+            InputBrand.FormattingEnabled = true;
+            InputBrand.Location = new Point(52, 43);
+            InputBrand.Name = "InputBrand";
+            InputBrand.Size = new Size(175, 23);
+            InputBrand.TabIndex = 101;
+            InputBrand.SelectedIndexChanged += InputBrand_SelectedIndexChanged;
+            // 
+            // InputModel
+            // 
+            InputModel.FormattingEnabled = true;
+            InputModel.Location = new Point(52, 95);
+            InputModel.Name = "InputModel";
+            InputModel.Size = new Size(175, 23);
+            InputModel.TabIndex = 102;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1457, 807);
+            ClientSize = new Size(1703, 807);
+            Controls.Add(InputModel);
+            Controls.Add(InputBrand);
             Controls.Add(UpdateStatusButton);
             Controls.Add(UpdateButton);
             Controls.Add(DeleteButton);
@@ -286,8 +291,6 @@
             Controls.Add(SaveDevise);
             Controls.Add(Model);
             Controls.Add(Brand);
-            Controls.Add(InputModel);
-            Controls.Add(InputBrand);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
@@ -297,9 +300,6 @@
         }
 
         #endregion
-
-        private TextBox InputBrand;
-        private TextBox InputModel;
         private Label Brand;
         private Label Model;
         private Button SaveDevise;
@@ -322,5 +322,7 @@
         private Button UpdateButton;
         private Button UpdateStatusButton;
         public DataGridView dataGrid;
+        private ComboBox InputBrand;
+        private ComboBox InputModel;
     }
 }

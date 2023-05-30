@@ -4,10 +4,17 @@
     {
         DataGridView DataGridView;
 
-        public UpdateForm(DataGridView dataGridView)
+        public UpdateForm(DataGridView dataGridView, params string[] inputData)
         {
             InitializeComponent();
             DataGridView = dataGridView;
+            EntryNumber.Text = inputData[0];
+            UpdateBrand.Text = inputData[1];
+            UpdateModel.Text = inputData[2];
+            UpdateFirstName.Text = inputData[3];
+            UpdateSecondName.Text = inputData[4];
+            UpdateLastName.Text = inputData[5];
+            UpdateNumberPhone.Text = inputData[6];
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
