@@ -5,7 +5,9 @@ namespace Workshop_App
 {
     internal class WorkWishSQL
     {
-        private static string pathDB = @"C:\Users\sereb\OneDrive\Документы\WorkShop_SQLServer.mdf";
+        //C:\Users\sereb\OneDrive\Рабочий стол\WorshopApp\Workshop_App\WorkShop_SQLServer.mdf
+        private static string pathDB = @"C:\Users\sereb\OneDrive\Рабочий стол\WorshopApp\Workshop_App\WorkShop_SQLServer.mdf";
+        //private static string pathDB = @"C:\Users\sereb\OneDrive\Документы\WorkShop_SQLServer.mdf";
 
         public SqlConnection sqlConnection = new SqlConnection(
                 @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={pathDB};Integrated Security=True;Connect Timeout=30"
